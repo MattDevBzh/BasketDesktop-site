@@ -1,12 +1,49 @@
 {
   "latest": {
-    "version": "0.3.0",
-    "filename": "BasketDesktop-Windows-x64-v0.3.0.zip",
-    "sizeBytes": 162160200,
-    "sha256": "50da22c58d94869852398ba93b8becc56f20f664eef998c992e966447d66f8a0",
-    "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.3.0/BasketDesktop-Windows-x64-v0.3.0.zip"
+    "version": "0.4.0",
+    "filename": "BasketDesktop-Windows-x64-v0.4.0.zip",
+    "sizeBytes": 162161823,
+    "sha256": "73f4675d5af3b55180a6813b737c366d5ae61c09ec05256e434ad4b73ceba986",
+    "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.0/BasketDesktop-Windows-x64-v0.4.0.zip",
+    "platforms": {
+      "windows-x64": {
+        "filename": "BasketDesktop-Windows-x64-v0.4.0.zip",
+        "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.0/BasketDesktop-Windows-x64-v0.4.0.zip",
+        "sizeBytes": 162161823,
+        "sha256": "73f4675d5af3b55180a6813b737c366d5ae61c09ec05256e434ad4b73ceba986",
+        "nativeLaunchVerified": true
+      },
+      "macos-arm64": {
+        "filename": "BasketDesktop-macOS-arm64-v0.4.0.zip",
+        "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.0/BasketDesktop-macOS-arm64-v0.4.0.zip",
+        "sizeBytes": 134606274,
+        "sha256": "942f5075404b2e2d5ad4fae9b1bd731264000ad3dff0f0edbd88d9dc0263f120",
+        "minimumOS": "13.0",
+        "notarized": false,
+        "nativeLaunchVerified": true
+      },
+      "macos-x64": {
+        "filename": "BasketDesktop-macOS-x64-v0.4.0.zip",
+        "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.0/BasketDesktop-macOS-x64-v0.4.0.zip",
+        "sizeBytes": 140395468,
+        "sha256": "c1df3dd01a45237b32e68669d044b58f6125d51def07906ec6e37ca99419322c",
+        "minimumOS": "13.0",
+        "notarized": false,
+        "nativeLaunchVerified": true
+      }
+    }
   },
   "history": [
+    {
+      "version": "0.4.0",
+      "date": "2026-10-01",
+      "title": "Un geste. Mille petites étoiles.",
+      "changes": [
+        "Mode étoiles secret : haut, haut, bas, bas, gauche, droite, gauche, droite, avec pauses.",
+        "Chaque étoile disparaît après 0,5 seconde ; le mode reste jusqu’à fermeture.",
+        "Téléchargements Windows et macOS Apple Silicon / Intel."
+      ]
+    },
     {
       "version": "0.3.0",
       "date": "2026-09-30",
