@@ -1,0 +1,41 @@
+{
+  "latest": {
+    "version": "0.3.0",
+    "filename": "BasketDesktop-Windows-x64-v0.3.0.zip",
+    "sizeBytes": 162160200,
+    "sha256": "50da22c58d94869852398ba93b8becc56f20f664eef998c992e966447d66f8a0",
+    "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.3.0/BasketDesktop-Windows-x64-v0.3.0.zip"
+  },
+  "history": [
+    {
+      "version": "0.3.0",
+      "date": "2026-09-30",
+      "title": "Le ballon prend vie.",
+      "changes": [
+        "Nouveaux sprites détaillés et rotation du ballon.",
+        "Panier orientable en miroir depuis le menu.",
+        "Double-clic pour propulser le ballon aléatoirement."
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-09-30",
+      "title": "Plus de ballon, plus de liberté.",
+      "changes": [
+        "Ballon agrandi de 75 %.",
+        "Mode ballon seul, avec réglage mémorisé.",
+        "Menu commun au ballon et au panier, sans surbrillance du ballon."
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-09-30",
+      "title": "Le premier entre-deux.",
+      "changes": [
+        "Physique du lancer, gravité et rebonds.",
+        "Passage entre les écrans et panier déplaçable.",
+        "Tirs à 2 ou 3 points et réapparition du ballon."
+      ]
+    }
+  ]
+}
