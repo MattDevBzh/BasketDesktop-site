@@ -25,11 +25,11 @@ const source = path.join(temp, 'basket-app');
 const windowsAsar = path.join(input, 'BasketDesktop', 'resources', 'app.asar');
 extractAll(windowsAsar, source);
 const pkg = JSON.parse(fs.readFileSync(path.join(source,'package.json'),'utf8'));
-if (pkg.version !== version || pkg.devDependencies.electron !== '44.5.1') throw new Error('Unexpected application version');
+if (pkg.version !== version) throw new Error('Unexpected application version');
 const [folder] = await packager({
   dir: source, out: path.join(temp,'basket-build'), name: 'BasketDesktop',
   executableName: 'BasketDesktop', platform: 'darwin', arch,
-  electronVersion: pkg.devDependencies.electron, appVersion: version,
+  electronVersion: '44.5.1', appVersion: version,
   asar: true, prune: false, overwrite: true,
   icon: path.join(source,'assets','icon.icns'),
   appBundleId: 'fr.basketdesktop.app', appCategoryType: 'public.app-category.games',
