@@ -1,4 +1,4 @@
-name: Build and publish macOS v0.4.0
+name: Build and publish macOS v0.4.1
 on:
   workflow_dispatch:
   push:
@@ -9,10 +9,11 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: macos-v0.4.0
+  group: macos-v0.4.1
   cancel-in-progress: false
 env:
-  APP_VERSION: 0.4.0
+  APP_VERSION: 0.4.1
+  PAYLOAD_VERSION: 0.4.0
 jobs:
   build:
     name: macOS ${{ matrix.arch }}
@@ -20,9 +21,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-15
+          - os: macos-26
             arch: arm64
-          - os: macos-15-intel
+          - os: macos-26-intel
             arch: x64
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
@@ -34,7 +35,7 @@ jobs:
       - name: Download verified Windows application payload
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release download "v${APP_VERSION}" --repo "$GITHUB_REPOSITORY" --pattern "BasketDesktop-Windows-x64-v${APP_VERSION}.zip" --dir "$RUNNER_TEMP/input"
+        run: gh release download "v${PAYLOAD_VERSION}" --repo "$GITHUB_REPOSITORY" --pattern "BasketDesktop-Windows-x64-v${PAYLOAD_VERSION}.zip" --dir "$RUNNER_TEMP/input"
       - name: Install packaging tools
         run: npm install --prefix "$RUNNER_TEMP/basket-tools" --ignore-scripts --no-audit --no-fund @electron/packager@20.3.0 @electron/asar@4.3.1
       - name: Package, sign locally, verify and launch on macOS
@@ -44,39 +45,20 @@ jobs:
         run: node .github/scripts/build-macos.mjs
       - uses: actions/upload-artifact@v4
         with:
-          name: BasketDesktop-macOS-${{ matrix.arch }}-v0.4.0
+          name: BasketDesktop-macOS-${{ matrix.arch }}-v0.4.1
           path: dist/*
           if-no-files-found: error
           retention-days: 14
-  windows-check:
-    name: Verify native Windows launch
-    runs-on: windows-latest
-    timeout-minutes: 10
-    steps:
-      - name: Download and verify Windows v0.4.0
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: pwsh
-        run: |
-          gh release download "v${env:APP_VERSION}" --repo "$env:GITHUB_REPOSITORY" --pattern "BasketDesktop-Windows-x64-v${env:APP_VERSION}.zip"
-          $zip = "BasketDesktop-Windows-x64-v${env:APP_VERSION}.zip"
-          if ((Get-FileHash $zip -Algorithm SHA256).Hash.ToLower() -ne '73f4675d5af3b55180a6813b737c366d5ae61c09ec05256e434ad4b73ceba986') { throw 'Checksum mismatch' }
-          Expand-Archive $zip -DestinationPath app
-          $p = Start-Process -FilePath ./app/BasketDesktop/BasketDesktop.exe -ArgumentList '--smoke-test' -PassThru -RedirectStandardOutput smoke.log -RedirectStandardError smoke-error.log
-          if (-not $p.WaitForExit(60000)) { Stop-Process -Id $p.Id; throw 'Launch timed out' }
-          Get-Content smoke.log
-          Get-Content smoke-error.log
-          if ($p.ExitCode -ne 0 -or -not (Select-String -Path smoke.log -Pattern 'SMOKE_OK' -Quiet)) { throw 'Native Windows launch failed' }
   publish:
-    name: Add macOS downloads to the existing release
-    needs: [build, windows-check]
+    name: Publish macOS signing hotfix
+    needs: [build]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/download-artifact@v4
         with:
-          pattern: BasketDesktop-macOS-*-v0.4.0
+          pattern: BasketDesktop-macOS-*-v0.4.1
           path: release-files
           merge-multiple: true
       - name: Publish both Mac archives and checksums
@@ -85,4 +67,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           sha256sum BasketDesktop-macOS-*-v${APP_VERSION}.zip > "SHA256SUMS-macOS-v${APP_VERSION}.txt"
-          gh release upload "v${APP_VERSION}" BasketDesktop-macOS-*-v${APP_VERSION}.zip "SHA256SUMS-macOS-v${APP_VERSION}.txt" --repo "$GITHUB_REPOSITORY" --clobber
+          cat > release-notes.txt <<'NOTES'
+          Correctif macOS : résout le plantage au démarrage « different Team IDs » lors du chargement d’Electron.
+          Versions Apple Silicon et Intel ; signatures et démarrage vérifiés sur macOS 26, après extraction du ZIP et via LaunchServices.
+          Remplacez l’ancienne application par celle de ce ZIP dans Applications.
+          Version de test non notariée par Apple. Windows reste disponible en v0.4.0.
+          NOTES
+          gh release view "v${APP_VERSION}" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "v${APP_VERSION}" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "BasketDesktop v${APP_VERSION} — Correctif macOS" --notes-file release-notes.txt
+          gh release upload "v${APP_VERSION}" BasketDesktop-macOS-*-v${APP_VERSION}.zip "SHA256SUMS-macOS-v${APP_VERSION}.txt" macos-*.json --repo "$GITHUB_REPOSITORY" --clobber
