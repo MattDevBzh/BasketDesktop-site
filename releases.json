@@ -11,29 +11,50 @@
         "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.0/BasketDesktop-Windows-x64-v0.4.0.zip",
         "sizeBytes": 162161823,
         "sha256": "73f4675d5af3b55180a6813b737c366d5ae61c09ec05256e434ad4b73ceba986",
-        "nativeLaunchVerified": true
+        "nativeLaunchVerified": true,
+        "version": "0.4.0"
       },
       "macos-arm64": {
-        "filename": "BasketDesktop-macOS-arm64-v0.4.0.zip",
-        "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.0/BasketDesktop-macOS-arm64-v0.4.0.zip",
-        "sizeBytes": 134606274,
-        "sha256": "942f5075404b2e2d5ad4fae9b1bd731264000ad3dff0f0edbd88d9dc0263f120",
+        "version": "0.4.1",
+        "filename": "BasketDesktop-macOS-arm64-v0.4.1.zip",
+        "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.1/BasketDesktop-macOS-arm64-v0.4.1.zip",
+        "sizeBytes": 133347435,
+        "sha256": "ae0a9b6c4eed8a64e41a5b971ac7b4ce29447995c1e1bd9b0c593ded1b18200f",
         "minimumOS": "13.0",
         "notarized": false,
-        "nativeLaunchVerified": true
+        "nativeLaunchVerified": true,
+        "testedOS": "26.6.2",
+        "libraryValidationExceptionVerified": true,
+        "archiveLaunchVerified": true,
+        "launchServicesVerified": true
       },
       "macos-x64": {
-        "filename": "BasketDesktop-macOS-x64-v0.4.0.zip",
-        "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.0/BasketDesktop-macOS-x64-v0.4.0.zip",
-        "sizeBytes": 140395468,
-        "sha256": "c1df3dd01a45237b32e68669d044b58f6125d51def07906ec6e37ca99419322c",
+        "version": "0.4.1",
+        "filename": "BasketDesktop-macOS-x64-v0.4.1.zip",
+        "downloadUrl": "https://github.com/MattDevBzh/BasketDesktop-site/releases/download/v0.4.1/BasketDesktop-macOS-x64-v0.4.1.zip",
+        "sizeBytes": 140377761,
+        "sha256": "dc0fc96a9fabb34c7a5152c79589df8d962a472025b0f882abd7835eaec014eb",
         "minimumOS": "13.0",
         "notarized": false,
-        "nativeLaunchVerified": true
+        "nativeLaunchVerified": true,
+        "testedOS": "26.6.1",
+        "libraryValidationExceptionVerified": true,
+        "archiveLaunchVerified": true,
+        "launchServicesVerified": true
       }
     }
   },
   "history": [
+    {
+      "version": "0.4.1",
+      "date": "2026-10-03",
+      "title": "Le Mac entre en jeu.",
+      "changes": [
+        "Corrige le plantage au chargement d’Electron lié aux signatures ad-hoc (different Team IDs).",
+        "Signatures et démarrage des archives Apple Silicon et Intel vérifiés sur macOS 26.",
+        "Windows reste disponible en v0.4.0."
+      ]
+    },
     {
       "version": "0.4.0",
       "date": "2026-10-01",
@@ -74,5 +95,6 @@
         "Tirs à 2 ou 3 points et réapparition du ballon."
       ]
     }
-  ]
+  ],
+  "latestReleaseVersion": "0.4.1"
 }
